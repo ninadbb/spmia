@@ -1,0 +1,124 @@
+version: '2'
+services:
+  eurekaserver:
+    image:   ninadbb/tmx-eurekasvr:spmia-tag
+    ports:
+      - "8761:8761"
+
+  configserver:
+    image: ninadbb/tmx-confsvr:spmia-tag
+    ports:
+      - "8888:8888"
+    environment:
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      #ENCRYPT_KEY:       "IMSYMMETRIC"
+
+  zipkin:
+    image: ninadbb/tmx-zipkinsvr:spmia-tag
+    ports:
+      - "9411:9411"
+    environment:
+      SERVER_PORT: "9411"
+
+  zuulserver:
+    image: ninadbb/tmx-zuulsvr:spmia-tag
+    ports:
+      - "5555:5555"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      ZIPKIN_URI: "http://zipkin:9411"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+      EUREKASERVER_PORT:        "8761"
+      DATABASE_PORT:      "5432"
+      CONFIGSERVER_PORT:          "8888"
+      ORGSERVERNEW_PORT:        "8087"
+      ZIPKIN_PORT:         "9411"
+
+  database:
+    image: postgres:9.5
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=p0stgr@s
+      - POSTGRES_DB=eagle_eye_local
+
+  licensingservice:
+    image: ninadbb/tmx-licensing-service:spmia-tag
+    ports:
+      - "8080:8080"
+      - "8090:8090"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8080"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      ZIPKIN_URI: "http://zipkin:9411"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+      KAFKASERVER_URI: "kafkaserver"
+      ZKSERVER_URI: "kafkaserver"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASE_PORT: "5432"
+      KAFKASERVER_PORT:    "2181"
+      REDIS_PORT:          "6379"
+      ZIPKIN_PORT:         "9411"
+      #ENCRYPT_KEY:       "IMSYMMETRIC"
+
+  organizationservice:
+    image: ninadbb/tmx-organization-service:spmia-tag
+    ports:
+      - "8085:8085"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8085"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      ZIPKIN_URI: "http://zipkin:9411"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+      KAFKASERVER_URI: "kafkaserver"
+      ZKSERVER_URI: "kafkaserver"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASE_PORT: "5432"
+      KAFKASERVER_PORT:    "2181"
+      ZIPKIN_PORT:         "9411"
+      #ENCRYPT_KEY:       "IMSYMMETRIC"
+
+  authenticationservice:
+    image: ninadbb/tmx-authentication-service:spmia-tag
+    ports:
+      - "8901:8901"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8901"
+      DATABASE_PORT:     5432
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      ZIPKIN_URI: "http://zipkin:9411"
+      ZIPKIN_PORT:         "9411"
+      #ENCRYPT_KEY:       "IMSYMMETRIC"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
+  kafkaserver:
+    image: spotify/kafka
+    ports:
+      - 2181:2181
+      - 9092:9092
+
+  #  This is the openzipkin server.
+  # zipkin:
+  #   image: openzipkin/zipkin
+  #   ports:
+  #     - 9411:9411
+  #Attention:  Replace the value in the “command” attribute with the value supplied to you from Papertrail
