@@ -1,18 +1,30 @@
 language: java
-
 jdk:
-  - openjdk8
-
+- openjdk8
 cache:
   directories:
-    - "$HOME/.m2"
-    - $HOME/.gradle
-
+  - "$HOME/.m2"
+  - "$HOME/.gradle"
 sudo: false
-
 services:
-  - docker
-
+- docker
+notifications:
+  email:
+  - ninadbb@gmail.com
+  on_success: always
+  on_failure: always
 branches:
   only:
-    - master
+  - master
+env:
+  global:
+  - secure: Ea3exHo1zZHzDEusDDOJPyyizoOENE5bZ4lfHd3T89qpCbwjD4OGHeco60gmcI1FVg0g+X3hyqapJbpQl03LpQmWYzv5VnADBRREiX8WnheYfyKEYQAU5X5FXAtarjZqaHma/1mtNOvvbLB9iaK1S005WT3A0jNuZDGzM5QvFo8uksuofkPoY0TK8pa/zmkZ55ljQLb+izgVwD4wXoORyU+1W+FvLMs6C/4vfH90JES/fD7er1hgAToVapb/ryWwY9zhv7EHo1RPWxJbwjsOesRmBvELw5LtXjX99S5VDBIY8RiXFQae6riyvMDPtHNXJE3GBtE6yIUXVuQyUZGrS5l77eo1hL05hoAWG+42hHQrARbdS3JIskez4LMdH8e/Kym6rKqZznRq2M+yoapBd0EFUVrwwWdEeELJ61RYLKnkB8Pr7QubFUFxcDnAlfy0hLpIeOq8WQd3bEQp4boIZa5ToAihMn7t//mz+bLaXOM6wEdMpI9H2anZpU7vvqFnhGWgeKGsgTKDy8JgD/UP57+29b4/pLsFSeg6zxM9cPgy1924i/n4RA8MtJ1jMxtMiEwTvra0IQBJbr4aUvP+6PJKYPZt34Jk9jW/8Ue17c0+BHW9asNmNot5c/C0rInfvpsszkx7CbuzCjj5oZL6kz8FOc3G7w2TVAgjTHzxzp4=
+  - secure: stuh+JfbVbEEtqRtnGkMpOKZPEhmRoJwUuyFWtHElxHf5jIMnh9BrRKByF0cPi1AcaFVDw60ZNwCCr0oDo3DTddeznXf+AlwPbe84uN0AkklPnSaJbBcpC8P5/9qgwpYDCqhRWxJww0/L7r7bMdNWay53GhXouxPZ7IvyDsk1GMxcLByz1cyKjG71n3jT+eYw/0plR/+upO8s+MfrpX+64sTopvH1m4fnk4ExYetvMJvhTSdnAHQ9W+fV/CTVKpa0OZtkgLgWifPV/FTYsKehEMBp/3KIN1/g4hu7RWXtV7957VCXQpU3DjO7JRsHcxjFZV41jsYF4r4wlTTL1EQ+buW6B7TUv8E+UPUxMPTjs+Ww71ajNK1GrKoqap7YmdRntMD7Eor3Ge2w3u7rC/QwIGNsnIgOtYYhBWcRdL0qVbRTYBMHNOTcrEr6YmlKkYTtY6EpV/WUr2fFijXHZggSGjxEpxOrl3+Xv4gd8kZLAK1P03/4eGBRcnbn/KqnwuVN9wwqCugEMIznRQ2saZ/wyPZlOpl9EHGJktzLYmkvfkePZNTXJfA/ppCT3gMNJxsEvNC0macK8pCYr/WMDtGF3QmkNHwdwpSRPXzM7wm9dkKs0RSEJaqulheCoSzOOBWubjUJ7oJ5XRv7YPaR5dMxFbcAzo7WjW4EemsT1vu9tI=
+  - secure: CEvD9Cf9hio/AVJPMZai0ea732FMdSlfm/KlMd7OrLB+HPnLrmavaaiULve/wQF2IyZ7VCQXHig6t0l588nFEI7W0flnTQ8m9Ac7AUQsIGe5xVes7ebQ3odZal21x4YtB1FuR6nnbma73Rj78P7MQ36SCKZaWhKkjffYddo2ETcwDWczqXeMEjMgquM87uIK7BlZ3NPohpkMG8PLvNWd3ZKzpL5+yvKOtRc3YhELwvRIlJGsCeM437i4egJc8Xj3aTJFsPGAuNYx842T1i5tPxtoZxZQtf98ce0bAZKvYj7gqRnlR8MnK1F7AAW2dB5s9zv15PUxxHY/+5SeDnoVOkha7dYPAWUFi3LmkANyOA49LKaCbyp8vbRRcoT8kI2xNilcbOTXqVWBbTt/KDybc9NtSr09vFOdV99pKsw+ObJiufGyP1P3WoEt9yDjTJVTO800bJj6TityGjX/RrIkrWcVj+CFetnX7ToyHist9YSmgEuJXccWaFSwaUl7XHHg4QMFY55ewDz/ZB0YgpDgAEWWtPCPzNj0ufRnb6SY1s3fb68p9NyG0nYIRA1/QKkD49TkblBJhq0WQ9mUcNUiNMnTVbH58nMXilwP2+XzX/CxkNoASzeDlPPO/QJSlGs7nrJytfrBVWjRG5ZBnUGpcyY0rDeEjypVoFVaZ0BiW0Y=
+before_install:
+  - gem install travis --no-document
+  - export BUILD_NAME=spmia-$TRAVIS_BRANCH-$(date -u "+%Y%m%d%H%M%S")-$TRAVIS_BUILD_NUMBER
+script:
+  - sh travis_scripts/tag_build.sh
+  - sh travis_scripts/build_services.sh
+  - sh travis_scripts/deploy_to_docker_hub.sh
