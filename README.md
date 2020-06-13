@@ -3,8 +3,7 @@
 - This project demonstrates Spring Microservices POC.
 - It is based on the book Spring Microservices In Action First Edition
 
-
-##Software needed
+## Software needed
 - Maven
 - Docker
 - Git  
