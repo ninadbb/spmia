@@ -1,12 +1,12 @@
 version: '2'
 services:
   eurekaserver:
-    image:   ninadbb/tmx-eurekasvr:spmia-tag
+    image:   ninadbb/tmx-eurekasvr:${BUILD_NAME}
     ports:
       - "8761:8761"
 
   configserver:
-    image: ninadbb/tmx-confsvr:spmia-tag
+    image: ninadbb/tmx-confsvr:${BUILD_NAME}
     ports:
       - "8888:8888"
     environment:
@@ -15,14 +15,14 @@ services:
       #ENCRYPT_KEY:       "IMSYMMETRIC"
 
   zipkin:
-    image: ninadbb/tmx-zipkinsvr:spmia-tag
+    image: ninadbb/tmx-zipkinsvr:${BUILD_NAME}
     ports:
       - "9411:9411"
     environment:
       SERVER_PORT: "9411"
 
   zuulserver:
-    image: ninadbb/tmx-zuulsvr:spmia-tag
+    image: ninadbb/tmx-zuulsvr:${BUILD_NAME}
     ports:
       - "5555:5555"
     environment:
@@ -48,7 +48,7 @@ services:
       - POSTGRES_DB=eagle_eye_local
 
   licensingservice:
-    image: ninadbb/tmx-licensing-service:spmia-tag
+    image: ninadbb/tmx-licensing-service:${BUILD_NAME}
     ports:
       - "8080:8080"
       - "8090:8090"
@@ -70,7 +70,7 @@ services:
       #ENCRYPT_KEY:       "IMSYMMETRIC"
 
   organizationservice:
-    image: ninadbb/tmx-organization-service:spmia-tag
+    image: ninadbb/tmx-organization-service:${BUILD_NAME}
     ports:
       - "8085:8085"
     environment:
@@ -90,7 +90,7 @@ services:
       #ENCRYPT_KEY:       "IMSYMMETRIC"
 
   authenticationservice:
-    image: ninadbb/tmx-authentication-service:spmia-tag
+    image: ninadbb/tmx-authentication-service:${BUILD_NAME}
     ports:
       - "8901:8901"
     environment:
