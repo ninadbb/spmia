@@ -1,7 +1,7 @@
 
 # Spring Microservices POC | [![Build Status](https://www.travis-ci.com/ninadbb/spmia.svg?branch=master)](https://www.travis-ci.com/ninadbb/spmia)
 - This project demonstrates Spring Microservices POC.
-- It is based on the book Spring Microservices In Action First Edition
+- EagleEye: The fictitious application, manages software licences used by different organization built using microservices principles.
 
 ## Software needed
 - Maven
@@ -25,7 +25,7 @@ docker-compose -f docker/common/docker-compose.yml up
 - A Zuul API Gateway. All of our microservices can be routed through the gateway and have pre, response and post policies enforced on the calls.
 - A Zipkin server for visualizing distributed tracing
 - A organization service that will manage organization data used within EagleEye.
-- A licensing service that will manage licensing data used within EagleEye.
+- A licensing service that will manage licensing data(licenses for organizations) used within EagleEye.
 - A Postgres SQL database used to hold the data for these two services.
 - A Kafka message bus to transport messages between services.
 - A Redis service to act as a distributed cache.
